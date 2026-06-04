@@ -4,6 +4,10 @@ import { incompleteRecords } from "../mock/incomplete-records";
 
 import type { IncompleteRecord } from "../types/IncompleteRecord";
 
+import {
+    INCOMPLETE_RECORDS_EVENTS,
+} from "../constants/incomplete-records-events";
+
 import signalRConnection
     from "../../../shared/signalr/signalr-connection";
 
@@ -16,7 +20,7 @@ const IncompleteRecordsPage = () => {
             await signalRConnection.startConnection();
 
             signalRConnection.on(
-                "ADDRESS_VERIFICATION_STARTED",
+                INCOMPLETE_RECORDS_EVENTS.ADDRESS_VERIFICATION_STARTED,
                 (data) => {
                     const updatedRecord = data as IncompleteRecord;
 
@@ -35,7 +39,7 @@ const IncompleteRecordsPage = () => {
 
         return () => {
             signalRConnection.off(
-                "ADDRESS_VERIFICATION_STARTED"
+                INCOMPLETE_RECORDS_EVENTS.ADDRESS_VERIFICATION_STARTED
             );
         };
     }, []);
