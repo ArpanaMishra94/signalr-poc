@@ -2,7 +2,7 @@
 
 import * as signalR from "@microsoft/signalr";
 
-class SignalRService {
+class SignalRConnection {
   private connection: signalR.HubConnection | null = null;
 
   async startConnection() {
@@ -23,7 +23,6 @@ class SignalRService {
       await this.connection.start();
 
       console.log("SignalR Connected");
-
     } catch (error) {
       console.error(
         "SignalR Connection Error:",
@@ -32,12 +31,16 @@ class SignalRService {
     }
   }
 
-  onAddressVerificationStarted(callback: any) {
-    this.connection?.on(
-      "ADDRESS_VERIFICATION_STARTED",
-      callback
-    );
+  on(
+    eventName: string,
+    callback: (data: unknown) => void
+  ) {
+    this.connection?.on(eventName, callback);
+  }
+
+  off(eventName: string) {
+    this.connection?.off(eventName);
   }
 }
 
-export default new SignalRService();
+export default new SignalRConnection();
