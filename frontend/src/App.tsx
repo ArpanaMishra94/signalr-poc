@@ -1,7 +1,8 @@
-import MatchingResults from "./components/MatchingResults";
+import IncompleteRecordsPage
+from "./features/incompleteRecords/components/IncompleteRecordsPage";
 
 function App() {
-  return <MatchingResults />;
+  return <IncompleteRecordsPage />;
 }
 
 export default App;
