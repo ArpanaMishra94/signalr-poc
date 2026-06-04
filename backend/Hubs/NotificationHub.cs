@@ -1,3 +1,5 @@
+// Acts as the communication bridge
+
 using Microsoft.AspNetCore.SignalR;
 
 namespace backend.Hubs

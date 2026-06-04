@@ -1,3 +1,5 @@
+// Maintains the connection
+
 import * as signalR from "@microsoft/signalr";
 
 class SignalRService {

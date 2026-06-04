@@ -1,3 +1,5 @@
+//Displays records
+
 import { useEffect, useState } from "react";
 import { matchingResults } from "../mock/matchingResults";
 import type { MatchingResult } from "../types/MatchingResult";
