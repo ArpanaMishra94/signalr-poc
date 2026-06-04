@@ -22,7 +22,7 @@ public class TestController : ControllerBase
     public async Task<IActionResult> Update()
     {
         await _hubContext.Clients.All.SendAsync(
-            "RecordUpdated",
+            "ADDRESS_VERIFICATION_STARTED",
             new
             {
                 id = 101,

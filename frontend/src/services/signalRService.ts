@@ -32,9 +32,9 @@ class SignalRService {
     }
   }
 
-  onRecordUpdated(callback: any) {
+  onAddressVerificationStarted(callback: any) {
     this.connection?.on(
-      "RecordUpdated",
+      "ADDRESS_VERIFICATION_STARTED",
       callback
     );
   }

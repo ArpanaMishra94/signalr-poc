@@ -13,7 +13,7 @@ const MatchingResults = () => {
   const connect = async () => {
     await signalRService.startConnection();
 
-    signalRService.onRecordUpdated(
+    signalRService.onAddressVerificationStarted(
       updatedRecord => {
 
         setRecords(prev =>
