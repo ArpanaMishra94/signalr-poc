@@ -7,42 +7,37 @@ import type { IncompleteRecord } from "../types/IncompleteRecord";
 import signalRConnection from "../../../shared/signalr/signalr-connection";
 
 import {
-    INCOMPLETE_RECORDS_EVENTS,
-} from "../constants/incomplete-records-events";
+  registerIncompleteRecordsListeners,
+  unregisterIncompleteRecordsListeners,
+} from "../listeners/incomplete-records-listeners";
 
 export const useIncompleteRecords = () => {
     const [records, setRecords] =
         useState<IncompleteRecord[]>(incompleteRecords);
 
-    useEffect(() => {
-        const connect = async () => {
-            await signalRConnection.startConnection();
+   useEffect(() => {
+  const connect = async () => {
+    await signalRConnection.startConnection();
 
-            signalRConnection.on(
-                 INCOMPLETE_RECORDS_EVENTS.ADDRESS_VERIFICATION_STARTED,
-                (data) => {
-                    const updatedRecord =
-                        data as IncompleteRecord;
+    registerIncompleteRecordsListeners(
+      (updatedRecord) => {
+        setRecords((prev) =>
+          prev.map((record) =>
+            record.id === updatedRecord.id
+              ? updatedRecord
+              : record
+          )
+        );
+      }
+    );
+  };
 
-                    setRecords((prev) =>
-                        prev.map((record) =>
-                            record.id === updatedRecord.id
-                                ? updatedRecord
-                                : record
-                        )
-                    );
-                }
-            );
-        };
+  connect();
 
-        connect();
-
-        return () => {
-            signalRConnection.off(
-                  INCOMPLETE_RECORDS_EVENTS.ADDRESS_VERIFICATION_STARTED
-            );
-        };
-    }, []);
+  return () => {
+    unregisterIncompleteRecordsListeners();
+  };
+}, []);
 
     return {
         records,
