@@ -1,3 +1,5 @@
+// Render data only
+
 import { useIncompleteRecords }
 from "../hooks/useIncompleteRecords";
 

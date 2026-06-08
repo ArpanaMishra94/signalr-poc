@@ -1,5 +1,8 @@
+// SignalR event registration
+// SignalR event cleanup 
+
 import signalRConnection
-  from "../../../shared/signalr/signalr-connection";
+from "../../../shared/signalr/signalr-connection";
 
 import { INCOMPLETE_RECORDS_EVENTS }
   from "../constants/incomplete-records-events";

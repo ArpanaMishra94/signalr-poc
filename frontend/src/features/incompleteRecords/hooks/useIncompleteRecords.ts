@@ -1,3 +1,5 @@
+// Feature state management
+
 import { useEffect, useState } from "react";
 
 import { incompleteRecords } from "../mock/incomplete-records";
@@ -12,34 +14,34 @@ import {
 } from "../listeners/incomplete-records-listeners";
 
 export const useIncompleteRecords = () => {
-    const [records, setRecords] =
-        useState<IncompleteRecord[]>(incompleteRecords);
+  const [records, setRecords] =
+    useState<IncompleteRecord[]>(incompleteRecords);
 
-   useEffect(() => {
-  const connect = async () => {
-    await signalRConnection.startConnection();
+  useEffect(() => {
+    const connect = async () => {
+      await signalRConnection.startConnection();
 
-    registerIncompleteRecordsListeners(
-      (updatedRecord) => {
-        setRecords((prev) =>
-          prev.map((record) =>
-            record.id === updatedRecord.id
-              ? updatedRecord
-              : record
-          )
-        );
-      }
-    );
-  };
-
-  connect();
-
-  return () => {
-    unregisterIncompleteRecordsListeners();
-  };
-}, []);
-
-    return {
-        records,
+      registerIncompleteRecordsListeners(
+        (updatedRecord) => {
+          setRecords((prev) =>
+            prev.map((record) =>
+              record.id === updatedRecord.id
+                ? updatedRecord
+                : record
+            )
+          );
+        }
+      );
     };
+
+    connect();
+
+    return () => {
+      unregisterIncompleteRecordsListeners();
+    };
+  }, []);
+
+  return {
+    records,
+  };
 };
