@@ -15,7 +15,7 @@ export const registerIncompleteRecordsListeners = (
     updatedRecord: IncompleteRecord
   ) => void
 ) => {
-  signalRConnection.on(
+  signalRConnection.on(    //Whenever the backend sends ADDRESS_VERIFICATION_STARTED, this callback executes.
     INCOMPLETE_RECORDS_EVENTS.ADDRESS_VERIFICATION_STARTED,
     (data) => {
       onAddressVerificationStarted(
